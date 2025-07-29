@@ -1,0 +1,41 @@
+{
+  "warehouse": "6885146b1e80613504adbe71",
+  "code": "A01-01-01",
+  "name": "Aisle A, Rack 1, Shelf 1",
+  "type": "rack",
+  "zone": "A",
+  "aisle": "01",
+  "shelf": "01",
+  "bin": "01",
+  "hierarchy": {
+    "level": 4,
+    "zone": "A",
+    "aisle": "01",
+    "rack": "01",
+    "shelf": "01",
+    "bin": "01"
+  },
+  "coordinates": {
+    "x": 1,
+    "y": 1,
+    "z": 1
+  },
+  "dimensions": {
+    "length": 2,
+    "width": 1,
+    "height": 2,
+    "unit": "m"
+  },
+  "capacity": {
+    "maxWeight": 1000,
+    "maxVolume": 10,
+    "weightUnit": "kg",
+    "volumeUnit": "cbm"
+  },
+  "properties": {
+    "isAccessible": true,
+    "hasBarcode": true,
+    "hasRFID": false,
+    "isClimateControlled": false
+  }
+}

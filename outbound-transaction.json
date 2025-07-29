@@ -1,0 +1,30 @@
+{
+  "inventoryId": "688517d1539ed3d67381ce86",
+  "quantity": 50,
+  "reference": {
+    "type": "SALES_ORDER",
+    "number": "SO-2025-001",
+    "date": "2025-07-26"
+  },
+  "party": {
+    "type": "CUSTOMER",
+    "name": "PT Customer Setia",
+    "code": "CUST001",
+    "contact": {
+      "email": "orders@customer.com",
+      "phone": "+62211234568"
+    }
+  },
+  "batch": {
+    "number": "BATCH001"
+  },
+  "quality": {
+    "status": "GOOD"
+  },
+  "reason": "Sales order fulfillment",
+  "notes": "Shipped to customer on time",
+  "createdBy": {
+    "userId": "user123",
+    "userName": "Jane Doe"
+  }
+}

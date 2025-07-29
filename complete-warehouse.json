@@ -1,0 +1,73 @@
+{
+  "name": "Main Distribution Center",
+  "code": "MDC001",
+  "type": "distribution",
+  "description": "Primary distribution center for Jakarta region",
+  "location": {
+    "address": "123 Industrial Park Street",
+    "city": "Jakarta",
+    "state": "DKI Jakarta",
+    "country": "Indonesia",
+    "zipCode": "12345",
+    "coordinates": {
+      "latitude": -6.2088,
+      "longitude": 106.8456
+    }
+  },
+  "capacity": {
+    "totalArea": 5000,
+    "usableArea": 4500,
+    "unit": "sqm",
+    "maxWeight": 10000,
+    "weightUnit": "kg"
+  },
+  "contact": {
+    "manager": {
+      "name": "John Doe",
+      "email": "john.doe@company.com",
+      "phone": "+62123456789"
+    },
+    "mainPhone": "+62211234567",
+    "fax": "+62211234568"
+  },
+  "operatingHours": {
+    "monday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "tuesday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "wednesday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "thursday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "friday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "saturday": {
+      "isOpen": false
+    },
+    "sunday": {
+      "isOpen": false
+    }
+  },
+  "features": {
+    "hasLoadingDock": true,
+    "hasSecuritySystem": true,
+    "hasClimateControl": false,
+    "hasColdStorage": false,
+    "hasHazmatCapability": false
+  }
+}

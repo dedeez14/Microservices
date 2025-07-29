@@ -1,0 +1,189 @@
+version: '3.8'
+
+services:
+  # MongoDB for Warehouse Service
+  warehouse-db:
+    image: mongo:7.0
+    container_name: warehouse-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: warehouse_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - warehouse_db_data:/data/db
+      - ./warehouse-service/init-db:/docker-entrypoint-initdb.d
+    networks:
+      - erp-network
+
+  # MongoDB for User Service
+  user-db:
+    image: mongo:7.0
+    container_name: user-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: user_db
+    ports:
+      - "27018:27017"
+    volumes:
+      - user_db_data:/data/db
+      - ./user-service/init-db:/docker-entrypoint-initdb.d
+    networks:
+      - erp-network
+
+  # Redis for caching
+  redis:
+    image: redis:7.2-alpine
+    container_name: erp-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - erp-network
+
+  # RabbitMQ for message broker
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: erp-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - erp-network
+
+  # API Gateway - Custom Express.js Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: erp-api-gateway
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      WAREHOUSE_SERVICE_URL: http://warehouse-service:3001
+      USER_SERVICE_URL: http://user-service:3002
+      ORDER_SERVICE_URL: http://order-service:3003
+      PRODUCT_SERVICE_URL: http://product-service:3004
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      VALID_API_KEYS: gateway-admin-key-123,service-monitor-key-456
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+      - warehouse-service
+      - user-service
+    networks:
+      - erp-network
+
+  # User Service
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3002
+      MONGODB_URI: mongodb://user-db:27017/user_db
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      RABBITMQ_URL: amqp://admin:admin123@rabbitmq:5672
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      JWT_EXPIRES_IN: 24h
+      JWT_REFRESH_EXPIRES_IN: 7d
+      BCRYPT_ROUNDS: 12
+      EMAIL_HOST: smtp.gmail.com
+      EMAIL_PORT: 587
+      EMAIL_USER: your-email@gmail.com
+      EMAIL_PASS: your-email-password
+      FRONTEND_URL: http://localhost:3003
+    ports:
+      - "3002:3002"
+    depends_on:
+      - user-db
+      - redis
+      - rabbitmq
+    networks:
+      - erp-network
+
+  # Warehouse Service
+  warehouse-service:
+    build:
+      context: ./warehouse-service
+      dockerfile: Dockerfile
+    container_name: warehouse-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      MONGODB_URI: mongodb://warehouse-db:27017/warehouse_db
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      RABBITMQ_URL: amqp://admin:admin123@rabbitmq:5672
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      USER_SERVICE_URL: http://user-service:3002
+    ports:
+      - "3001:3001"
+    depends_on:
+      - warehouse-db
+      - redis
+      - rabbitmq
+    networks:
+      - erp-network
+
+  # Warehouse Frontend - React Application
+  warehouse-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: warehouse-frontend
+    restart: unless-stopped
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+    ports:
+      - "3003:80"
+    depends_on:
+      - api-gateway
+    networks:
+      - erp-network
+
+  # User Management Frontend - React Application
+  user-frontend:
+    build:
+      context: ./user-frontend
+      dockerfile: Dockerfile
+    container_name: user-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:3000
+      VITE_USER_SERVICE_URL: http://localhost:3002
+    ports:
+      - "3004:80"
+    depends_on:
+      - api-gateway
+      - user-service
+    networks:
+      - erp-network
+
+volumes:
+  warehouse_db_data:
+  user_db_data:
+  redis_data:
+  rabbitmq_data:
+
+networks:
+  erp-network:
+    driver: bridge

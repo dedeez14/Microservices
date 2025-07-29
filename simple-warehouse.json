@@ -1,0 +1,60 @@
+{
+  "name": "Simple Warehouse",
+  "code": "SW001",
+  "type": "distribution",
+  "description": "Simple test warehouse",
+  "location": {
+    "address": "123 Test Street",
+    "city": "Jakarta",
+    "state": "DKI Jakarta",
+    "country": "Indonesia",
+    "zipCode": "12345"
+  },
+  "capacity": {
+    "totalArea": 1000,
+    "usableArea": 900,
+    "unit": "sqm",
+    "maxWeight": 5000,
+    "weightUnit": "kg"
+  },
+  "contact": {
+    "manager": {
+      "name": "Test Manager",
+      "email": "test@company.com",
+      "phone": "+62123456789"
+    }
+  },
+  "operatingHours": {
+    "monday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "tuesday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "wednesday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "thursday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "friday": {
+      "isOpen": true,
+      "openTime": "08:00",
+      "closeTime": "17:00"
+    },
+    "saturday": {
+      "isOpen": false
+    },
+    "sunday": {
+      "isOpen": false
+    }
+  }
+}

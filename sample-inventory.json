@@ -1,0 +1,34 @@
+{
+  "warehouse": "6885146b1e80613504adbe71",
+  "location": "688517be539ed3d67381ce7f",
+  "product": {
+    "sku": "PROD001",
+    "name": "Sample Product 1",
+    "description": "Sample product for testing transactions",
+    "category": "Electronics",
+    "brand": "Test Brand",
+    "upc": "1234567890123"
+  },
+  "quantity": {
+    "available": 0,
+    "reserved": 0,
+    "onOrder": 0,
+    "unit": "pcs"
+  },
+  "cost": {
+    "average": 10000,
+    "last": 10000,
+    "currency": "IDR"
+  },
+  "batch": {
+    "number": "BATCH001",
+    "manufactureDate": "2025-07-01",
+    "expiryDate": "2026-07-01"
+  },
+  "thresholds": {
+    "minimum": 10,
+    "maximum": 1000,
+    "reorderPoint": 20,
+    "reorderQuantity": 100
+  }
+}

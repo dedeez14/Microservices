@@ -1,0 +1,38 @@
+{
+  "inventoryId": "688517d1539ed3d67381ce86",
+  "quantity": 100,
+  "cost": {
+    "unitCost": 15000,
+    "currency": "IDR"
+  },
+  "reference": {
+    "type": "PURCHASE_ORDER",
+    "number": "PO-2025-001",
+    "date": "2025-07-26"
+  },
+  "party": {
+    "type": "SUPPLIER",
+    "name": "PT Supplier Utama",
+    "code": "SUP001",
+    "contact": {
+      "email": "orders@supplier.com",
+      "phone": "+62211234567"
+    }
+  },
+  "batch": {
+    "number": "BATCH001",
+    "manufactureDate": "2025-07-26",
+    "expiryDate": "2026-07-26"
+  },
+  "quality": {
+    "status": "GOOD",
+    "inspector": "QC Inspector",
+    "notes": "Quality check passed"
+  },
+  "reason": "Purchase order delivery",
+  "notes": "Good quality products received on time",
+  "createdBy": {
+    "userId": "user123",
+    "userName": "John Doe"
+  }
+}

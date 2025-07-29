@@ -1,0 +1,16 @@
+{
+  "name": "Main Warehouse",
+  "code": "MW001",
+  "description": "Primary warehouse facility",
+  "location": {
+    "address": "123 Main St",
+    "city": "Jakarta",
+    "state": "DKI Jakarta",
+    "country": "Indonesia",
+    "zipCode": "12345",
+    "coordinates": {
+      "latitude": -6.2088,
+      "longitude": 106.8456
+    }
+  }
+}
